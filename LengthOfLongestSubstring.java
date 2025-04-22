@@ -10,32 +10,20 @@ public class LengthOfLongestSubstring {
 
     }
 
-    static int lengthOfLongestSubstring(String s) {
+    public static int lengthOfLongestSubstring(String s) {
         HashSet<Character> hset = new HashSet<>();
-        int length = 0, maxLen = 0, j = 0;
-
-        char[] chararr = s.toCharArray();
+        int maxLen = 0;
+        int j = 0;
 
         for (int i = 0; i < s.length(); i++) {
-            if (hset.contains(chararr[i])) {
-                length = hset.size();
-                while (chararr[i] != chararr[j]) {
-                    hset.add(chararr[j]);
-                    j++;
-
-                }
-                maxLen = Math.min(length, maxLen);
-                hset.remove(chararr[j]);
+            while (hset.contains(s.charAt(i))) {
+                hset.remove(s.charAt(j));
                 j++;
-
             }
-
-            hset.add(chararr[i]);
-            length = hset.size();
-            length = Math.max(length, maxLen);
+            hset.add(s.charAt(i));
+            maxLen = Math.max(maxLen, i - j + 1);
         }
 
-        return length;
-
+        return maxLen;
     }
 }
